@@ -6,7 +6,7 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: LANDRegistry
-    network: testnet
+    network: ropsten
     source:
       address: '0x89C110fb444c44c2f08030e766413d6327E4b594'
       abi: LANDRegistry
@@ -41,7 +41,7 @@ dataSources:
 
   - kind: ethereum/contract
     name: EstateRegistry
-    network: testnet
+    network: ropsten
     source:
       address: '0xb56098F596376fa3B2F423297201F9B62d771E66'
       abi: EstateRegistry
