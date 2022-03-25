@@ -1,0 +1,20 @@
+dataSources:
+  - kind: ethereum/contract
+    name: 
+    network: mainnet
+    source:
+      address: ''
+      abi: 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.1
+      language: wasm/assemblyscript
+      entities:
+      - 
+      abis:
+      - name: 
+        file: ./abis/.json
+      eventHandlers:
+      - event: 
+        handler: 
+      file: ./src/mappings/.ts

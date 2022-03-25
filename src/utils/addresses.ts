@@ -1,0 +1,2 @@
+export const LANDRegistry = '0x89C110fb444c44c2f08030e766413d6327E4b594'
+export const EstateRegistry = '0xb56098F596376fa3B2F423297201F9B62d771E66'

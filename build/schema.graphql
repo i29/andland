@@ -1,0 +1,111 @@
+type Parcel @entity {
+  id: ID!
+  tokenId: BigInt! # we store ID in hex and in uint256. This helps with interacting with the contract and dapp
+  x: BigInt!
+  y: BigInt!
+
+  owner: Wallet
+  owners: [Owner!] @derivedFrom(field: "parcel")
+
+  operators: [Operator!] @derivedFrom(field: "parcel")
+  operator: Bytes
+
+  updateOperator: Bytes
+  updateOperators: [UpdateOperator!] @derivedFrom(field: "parcel")
+
+  estate: Estate
+  estates: [EstateHistory!] @derivedFrom(field: "parcel")
+
+  data: Data
+
+  updatedAt: BigInt
+}
+
+type EstateHistory @entity {
+  id: ID!
+  _prevEstateId: String
+  estateId: String
+  parcel: Parcel!
+  createdAt: BigInt!
+}
+
+type Estate @entity {
+  id: ID!
+
+  owner: Wallet!
+  owners: [Owner!] @derivedFrom(field: "estate")
+
+  operators: [Operator!] @derivedFrom(field: "estate")
+  operator: Bytes
+
+  updateOperator: Bytes
+  updateOperators: [UpdateOperator!] @derivedFrom(field: "estate")
+
+  size: Int
+  parcels: [Parcel!]
+
+  data: Data
+
+  createdAt: BigInt
+  updatedAt: BigInt
+}
+
+type Authorization @entity {
+  id: ID!
+  type: String!
+  tokenAddress: Bytes!
+
+  owner: Wallet!
+  operator: Bytes!
+
+  isApproved: Boolean!
+  timestamp: BigInt!
+  createdAt: BigInt!
+}
+
+type Owner @entity {
+  id: ID!
+  address: Bytes
+  parcel: Parcel
+  estate: Estate
+  eventName: String!
+  timestamp: BigInt!
+  createdAt: BigInt!
+}
+
+type Operator @entity {
+  id: ID!
+  address: Bytes
+  parcel: Parcel
+  estate: Estate
+  eventName: String!
+  timestamp: BigInt!
+  createdAt: BigInt!
+}
+
+type UpdateOperator @entity {
+  id: ID!
+  address: Bytes
+  parcel: Parcel
+  estate: Estate
+  eventName: String!
+  timestamp: BigInt!
+  createdAt: BigInt!
+}
+
+type Data @entity {
+  id: ID!
+  parcel: Parcel
+  estate: Estate
+  version: String!
+  name: String
+  description: String
+  ipns: String
+}
+
+type Wallet @entity {
+  id: ID! # ETH addr
+  address: Bytes!
+  parcels: [Parcel!] @derivedFrom(field: "owner")
+  estates: [Estate!] @derivedFrom(field: "owner")
+}

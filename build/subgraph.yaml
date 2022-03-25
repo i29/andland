@@ -1,0 +1,76 @@
+specVersion: 0.0.2
+description: Decentraland's Watchtower
+repository: https://github.com/nicosantangelo/watchtower
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: LANDRegistry
+    network: testnet
+    source:
+      address: "0x89C110fb444c44c2f08030e766413d6327E4b594"
+      abi: LANDRegistry
+      startBlock: 12129550
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Parcel
+      abis:
+        - name: LANDRegistry
+          file: LANDRegistry/abis/LANDRegistry.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes)
+          handler: handleTransfer
+        - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes,bytes)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: UpdateManager(indexed address,indexed address,indexed address,bool)
+          handler: handleUpdateManager
+        - event: UpdateOperator(indexed uint256,indexed address)
+          handler: handleUpdateOperator
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Update(indexed uint256,indexed address,indexed address,string)
+          handler: handleUpdate
+      file: LANDRegistry/LANDRegistry.wasm
+  - kind: ethereum/contract
+    name: EstateRegistry
+    network: testnet
+    source:
+      address: "0xb56098F596376fa3B2F423297201F9B62d771E66"
+      abi: EstateRegistry
+      startBlock: 12129560
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Estate
+      abis:
+        - name: EstateRegistry
+          file: EstateRegistry/abis/EstateRegistry.json
+      eventHandlers:
+        - event: CreateEstate(indexed address,indexed uint256,string)
+          handler: handleCreateEstate
+        - event: AddLand(indexed uint256,indexed uint256)
+          handler: handleAddLand
+        - event: RemoveLand(indexed uint256,indexed uint256,indexed address)
+          handler: handleRemoveLand
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: UpdateManager(indexed address,indexed address,indexed address,bool)
+          handler: handleUpdateManager
+        - event: UpdateOperator(indexed uint256,indexed address)
+          handler: handleUpdateOperator
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Update(indexed uint256,indexed address,indexed address,string)
+          handler: handleUpdate
+      file: EstateRegistry/EstateRegistry.wasm
